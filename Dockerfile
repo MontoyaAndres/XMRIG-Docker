@@ -5,7 +5,7 @@ RUN set -xe;\
     apk add git make cmake libstdc++ gcc g++ libuv-dev openssl-dev hwloc-dev; \
     git clone https://github.com/xmrig/xmrig; \
     mkdir xmrig/build && cd xmrig/build; \
-    cmake -DWITH_HWLOCK=OFF ..; \
+    cmake -DWITH_HWLOC=OFF ..; \
     make -j $(nproc);
 
 ADD config.json xmrig/build/config.json
