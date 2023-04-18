@@ -6,7 +6,5 @@ RUN mkdir xmrig/build && cd xmrig/build
 RUN cmake ..
 RUN make -j$(nproc)
 
-ENV WALLET="82dewoRStv6Tvax5oV9zLSj3SX4SP58LXEeSghW3xrNbBdcfh38MdHwUAiQ56yiYbn4pvtU8g1DarfbVPqXFfEKXKL2H2qB"
-
 ADD script.sh /script.sh
 CMD ["/script.sh"]
