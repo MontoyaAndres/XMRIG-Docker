@@ -1,11 +1,12 @@
-FROM ubuntu:18.04
+FROM alpine
 
-RUN apt update \
-    && apt install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev \
-    && git clone https://github.com/xmrig/xmrig \
-    && mkdir xmrig/build && cd xmrig/build \
-    && cmake .. \
-    && make -j $(nproc)
+RUN set -xe;\
+    apt update; \
+    apk add git make cmake libstdc++ gcc g++ libuv-dev openssl-dev hwloc-dev; \
+    git clone https://github.com/xmrig/xmrig; \
+    mkdir xmrig/build && cd xmrig/build; \
+    cmake -DWITH_HWLOCK=OFF ..; \
+    make -j $(nproc);
 
 ADD config.json xmrig/build/config.json
 CMD ["xmrig/build/xmrig"]
