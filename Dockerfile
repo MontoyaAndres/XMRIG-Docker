@@ -1,12 +1,10 @@
-FROM alpine
+FROM ubuntu:18.04
 
-RUN set -xe;\
-    echo "@community http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories; \
-    apk update; \
-    apk add git util-linux build-base make cmake libuv-static libuv-dev libstdc++ gcc g++ openssl-dev hwloc-dev; \
-    git clone https://github.com/xmrig/xmrig; \
-    mkdir xmrig/build && cd xmrig/build; \
-    cmake .. -DCMAKE_BUILD_TYPE=Release -DUV_LIBRARY=/usr/lib/libuv.a;\
+RUN apt update && apt upgrade;\
+    apt install git make cmake libstdc++ gcc g++ libuv-dev openssl-dev hwloc-dev;\
+    git clone https://github.com/xmrig/xmrig;\
+    mkdir xmrig/build && cd xmrig/build;\
+    cmake ..;\
     make -j $(nproc);
 
 ADD config.json xmrig/build/config.json
